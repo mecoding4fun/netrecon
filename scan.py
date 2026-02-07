@@ -1,6 +1,8 @@
 # scan.py
 from scapy.all import ARP, Ether, srp
 
+
+
 def scan_network(target):
     arp = ARP(pdst=target)
     ether = Ether(dst="ff:ff:ff:ff:ff:ff")
