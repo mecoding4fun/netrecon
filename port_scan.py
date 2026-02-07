@@ -1,5 +1,7 @@
 import nmap
 from db import init_db, store_results, get_previous_state
+from report import generate_report
+
 
 DANGEROUS_PORTS = {
     21: "FTP (plaintext credentials)",
@@ -45,6 +47,8 @@ if __name__ == "__main__":
     results = scan_ports(ipinp)
     store_results(ipinp,results)
     previous = get_previous_state(ipinp)
+    report = generate_report(ipinp)
+    print("\n"+ report)
 
     for r in results:
         old = previous.get(r["port"])
