@@ -19,7 +19,8 @@ def scan_network(target):
     return devices
 
 if __name__ == "__main__":
-    devices = scan_network("192.168.1.0/24")
+    ipinp = input("Enter ip: ")
+    devices = scan_network(f"{ipinp}/24")
     for d in devices:
         print(d)
 

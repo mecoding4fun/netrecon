@@ -1,4 +1,10 @@
 import nmap
+DANGEROUS_PORTS = {
+    21: "FTP (plaintext credentials)",
+    23: "Telnet (no encryption)",
+    445: "SMB (wormable if exposed)",
+    3389: "RDP (brute-force target)"
+}
 
 def scan_ports(ip):
     scanner = nmap.PortScanner()
@@ -10,22 +16,33 @@ def scan_ports(ip):
 
     if ip in scanner.all_hosts():
         for proto in scanner[ip].all_protocols():
-            for port in scanner[ip][proto]:
+            for port in sorted(scanner[ip][proto]):
                 state = scanner[ip][proto][port]['state']
                 service = scanner[ip][proto][port].get('name', 'unknown')
-                print(ip,port,state,service)
 
-                if state == "open":
-                    results.append({
-                        "port": port,
-                        "service": service
-                    })
+                risk = None
+                if port in DANGEROUS_PORTS and state == "open":
+                    risk = DANGEROUS_PORTS[port]
+
+                result = {
+                    "port": port,
+                    "service": service,
+                    "state": state,
+                    "risk": risk
+                }
+
+                results.append(result)
+                print(ip, result)
+
     return results
 
 
 if __name__ == "__main__":
-    target_ip = "192.168.1.1"  # test on router or your own device
-    open_ports = scan_ports(target_ip)
+    
+    ipinp = input("Enter ip: ")
+    open_ports = scan_ports(ipinp)
 
     for p in open_ports:
-        print(f"Port {p['port']} ({p['service']}) is OPEN")
+        if p["state"] == "open":
+            print(f"[OPEN] {p['port']} ({p['service']}) risk={p['risk']}")
+
