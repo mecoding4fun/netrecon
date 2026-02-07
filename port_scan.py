@@ -1,4 +1,6 @@
 import nmap
+from db import init_db, store_results, get_previous_state
+
 DANGEROUS_PORTS = {
     21: "FTP (plaintext credentials)",
     23: "Telnet (no encryption)",
@@ -38,11 +40,14 @@ def scan_ports(ip):
 
 
 if __name__ == "__main__":
-    
+    init_db()
     ipinp = input("Enter ip: ")
-    open_ports = scan_ports(ipinp)
+    results = scan_ports(ipinp)
+    store_results(ipinp,results)
+    previous = get_previous_state(ipinp)
 
-    for p in open_ports:
-        if p["state"] == "open":
-            print(f"[OPEN] {p['port']} ({p['service']}) risk={p['risk']}")
+    for r in results:
+        old = previous.get(r["port"])
+        if old and old != r["state"]:
+            print(f"[CHANGE] {ipinp}:{r['port']} {old} → {r['state']}")
 
