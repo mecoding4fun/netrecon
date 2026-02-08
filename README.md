@@ -7,20 +7,6 @@ The project is designed to be educational, minimal, and beginner‑friendly. It 
 
 ---
 
-## What Problem This Solves
-
-Most beginners run a network scan once, see a wall of output, and move on without understanding what it means or what changed later.
-
-NetRecon solves this by:
-- Performing focused port scans on local IPs
-- Persisting scan results instead of discarding them
-- Detecting changes between scans
-- Presenting results in plain English
-
-This makes network visibility and basic security awareness approachable.
-
----
-
 ## Current Features
 
 - TCP port scanning on common ports
