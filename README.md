@@ -56,6 +56,11 @@ Install required dependencies:
 pip install scapy python-nmap
 ```
 
+or run 
+
+```bash
+pip install -r requirements.txt
+```
 ---
 
 ## Finding Your IP Address
