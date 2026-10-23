@@ -1,7 +1,7 @@
 {
-  "baseUrl": "https://accounts-pair-licence-from.trycloudflare.com",
+  "baseUrl": "",
   "testUrl": "",
-  "espUrl": "https://album-range-satisfaction-aaa.trycloudflare.com/stats",
-  "serverUrl": "https://requests-remove-nest-inform.trycloudflare.com",
-  "tt": "https://evaluate-fool-locally-charge.trycloudflare.com"
+  "espUrl": "/stats",
+  "serverUrl": "",
+  "tt": ""
 }
